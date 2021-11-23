@@ -1,0 +1,41 @@
+html {
+    font-family: cursive
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: auto;
+}
+
+.tv {
+    margin: 80px 0 80px 0;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.tv-content {
+    position: relative;
+    top: 36px;
+    left: 36px;
+    width: 72%;
+}
+
+.tv-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.timer {
+    padding-top: 20px;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
