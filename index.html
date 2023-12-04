@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="./script.js"></script>
     <title>DVD Logo</title>
 </head>
+
 <body style="background-color: black;">
     <img id="logo" src="logo.png" style="display: none;">
     <div class="container">
@@ -17,6 +19,19 @@
             <br><br>
         </div>
         <div id="timer" class="timer">...</div>
+        <div class="container-h" style="margin-top: 20px;">
+            <div class="container-h">
+                <label style="min-width: 100px;">Logo Width</label>
+                <input id="logo-width" class="range-input" type="range" min="75" max="500" step="5"
+                    oninput="widthChanged(this.value)" value="50"/>
+            </div>
+            <div class="container-h">
+                <label style="min-width: 100px;">Logo Height</label>
+                <input id="logo-height" class="range-input" type="range" min="50" max="260" step="5"
+                    oninput="heightChanged(this.value)" value="110"/>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>

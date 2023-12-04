@@ -1,5 +1,6 @@
 html {
-    font-family: cursive
+    color: white;
+    font-family: sans-serif
 }
 
 .container {
@@ -7,6 +8,14 @@ html {
     margin-right: auto;
     width: 600px;
     height: auto;
+}
+
+.container-h {
+    margin-right: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 .tv {
@@ -39,3 +48,56 @@ html {
     width: 100%;
     text-align: center;
 }
+
+/* Slider */
+.range-input {
+    -webkit-appearance: none;
+    appearance: none; 
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    border-radius: 15px;
+    height: 6px;
+    background: #ccc;
+  }
+  
+  .range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none; 
+    height: 15px;
+    width: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+  }
+  
+  .range-input::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    border: none;
+    transition: .2s ease-in-out;
+  }
+  
+  .range-input::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(255,255,255, .1)
+  }
+  .range-input:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px rgba(255,255,255, .2)
+  }
+  .range-input:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px rgba(255,255,255, .2)
+  }
+  
+  .range-input::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(255,255,255, .1)
+  }
+  .range-input:active::-moz-range-thumb {
+    box-shadow: 0 0 0 13px rgba(255,255,255, .2)
+  }
+  .range-input:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 13px rgba(255,255,255, .2)    
+  }
+  

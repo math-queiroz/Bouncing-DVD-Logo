@@ -31,14 +31,14 @@ const Corners = {
   BR: 3
 }
 class DVDBouncer {
-  constructor(canvas, options = {x:0, y:0, vx:1, vy:1, w:90, h:50, W:540, H:300}) {
+  constructor(canvas, w, h, options = {x:0, y:0, vx:1, vy:1, W:540, H:300}) {
     this.x = options.x;
     this.y = options.y;
 
     this.vx = options.vx;
     this.vy = options.vy;
-    this.w = options.w;
-    this.h = options.h;
+    this.w = w;
+    this.h = h;
     this.W = options.W;
     this.H = options.H;
     this.W0 = this.W - this.w;
@@ -65,6 +65,12 @@ class DVDBouncer {
     this.frameCount = 0;
     this.timerUpdateCountdown = 0;
     this.onTimerUpdate = new Function();
+
+    this.animFrameRequest;
+  }
+
+  stop() {
+    cancelAnimationFrame(this.animFrameRequest);
   }
 
   setOnTimerUpdate(cb) {
@@ -101,7 +107,7 @@ class DVDBouncer {
   }
 
   animate() {
-    reqAnimFrame(this.animate.bind(this));
+    this.animFrameRequest = reqAnimFrame(this.animate.bind(this));
 
     this.now = performance.now();
     this.elapsed = this.now - this.then;
@@ -137,12 +143,17 @@ class DVDBouncer {
 }
 
 var dvd;
-window.addEventListener("DOMContentLoaded", () => {
-  dvd = new DVDBouncer(document.getElementById("dvd-canvas"));
+
+function instantiateBouncer(w = 110, h = 50) {
+  dvd = new DVDBouncer(document.getElementById("dvd-canvas"), w, h);
   dvd.play();
   dvd.setOnTimerUpdate(timeToHit =>
     document.getElementById("timer").innerHTML = (timeToHit >= 0) ?
-    'Faltam ' + timeToHit + ' segundos para bater no canto' :
-    'Nunca vai bater num canto...'
+    'Will hit the corner in ' + timeToHit + 's' :
+    'Will never hit a corner'
   );
-});
+}
+
+function widthChanged(v) { dvd.stop(); instantiateBouncer(v, dvd.h) }
+function heightChanged(v) { dvd.stop(); instantiateBouncer(dvd.w, v) }
+window.addEventListener("DOMContentLoaded", () => instantiateBouncer());
