@@ -32,14 +32,11 @@ const Corners = {
 }
 class DVDBouncer {
   constructor(canvas, w, h, options = {x:0, y:0, vx:1, vy:1, W:540, H:300}) {
-    let randomX = Math.round(Math.random());
-    let randomY = Math.round(Math.random());
-    
-    this.x = randomX*(options.W-w);
-    this.y = randomY*(options.H-h);
+    this.x = 0;
+    this.y = 0;
 
-    this.vx = options.vx * (-randomX * 2 + 1);
-    this.vy = options.vy * (-randomY * 2 + 1);
+    this.vx = options.vx;
+    this.vy = options.vy;
     this.w = w;
     this.h = h;
     this.W = options.W;
