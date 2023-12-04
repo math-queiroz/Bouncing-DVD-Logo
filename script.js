@@ -25,10 +25,10 @@ class Util {
 }
 
 const Corners = {
-  TL: 0,
-  TR: 1,
-  BL: 2,
-  BR: 3
+  TL: "top left",
+  TR: "top right",
+  BL: "bottom left",
+  BR: "bottom right" 
 }
 class DVDBouncer {
   constructor(canvas, w, h, options = {x:0, y:0, vx:1, vy:1, W:540, H:300}) {
@@ -55,6 +55,9 @@ class DVDBouncer {
     
     this.cellSize = Util.gcd(this.W0, this.H0);
     
+    this.hitParity = 1;
+    this.corners = this.getHitCorners();
+
     this.fps = 50;
     this.fpsInterval = 1000 / this.fps;
     this.now = 0;
@@ -76,7 +79,6 @@ class DVDBouncer {
   setOnTimerUpdate(cb) {
   	this.onTimerUpdate = cb.bind(this);
   }
-
   
   getHitCorners() {
     if (!this.willHitTheCorner()) return [-1, -1];
@@ -96,7 +98,10 @@ class DVDBouncer {
   }
 
   calculateRemainingTime() {
-    if (this.frameCount >= this.framesPerCicle) this.frameCount %= this.framesPerCicle;
+    if (this.frameCount >= this.framesPerCicle) {
+      this.hitParity = 1 - this.hitParity;
+      this.frameCount %= this.framesPerCicle;
+    }
     this.onTimerUpdate(Math.trunc((this.framesPerCicle - this.frameCount) * this.fpsInterval / 1000));
   }
 
@@ -130,7 +135,7 @@ class DVDBouncer {
       this.draw(this.colorArr[this.logoColorIndex]);
       if (this.frameCount++ % this.fps === 0)
         this.calculateRemainingTime();
-    }
+      }
   }
 
   draw(colorHex) {
@@ -149,7 +154,7 @@ function instantiateBouncer(w = 110, h = 50) {
   dvd.play();
   dvd.setOnTimerUpdate(timeToHit =>
     document.getElementById("timer").innerHTML = (timeToHit >= 0) ?
-    'Will hit the corner in ' + timeToHit + 's' :
+    'Will hit the ' + dvd.corners[dvd.hitParity] + ' corner in ' + timeToHit + 's' :
     'Will never hit a corner'
   );
 }
