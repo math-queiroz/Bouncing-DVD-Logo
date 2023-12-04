@@ -155,6 +155,7 @@ var dvd;
 function instantiateBouncer(w = 110, h = 50) {
   dvd = new DVDBouncer(document.getElementById("dvd-canvas"), w, h);
   dvd.play();
+  dvd.randomizeColorIndex();
   dvd.setOnTimerUpdate(timeToHit =>
     document.getElementById("timer").innerHTML = (timeToHit >= 0) ?
     'Will hit the ' + dvd.corners[dvd.hitParity] + ' corner in ' + timeToHit + 's' :
