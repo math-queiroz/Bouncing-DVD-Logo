@@ -102,7 +102,7 @@ class DVDBouncer {
       this.hitParity = 1 - this.hitParity;
       this.frameCount %= this.framesPerCicle;
     }
-    this.onTimerUpdate(Math.trunc((this.framesPerCicle - this.frameCount) * this.fpsInterval / 1000));
+    this.onTimerUpdate(((this.framesPerCicle - this.frameCount) * this.fpsInterval / 1000).toFixed(1));
   }
 
   play() {
@@ -133,7 +133,7 @@ class DVDBouncer {
       }
 
       this.draw(this.colorArr[this.logoColorIndex]);
-      if (this.frameCount++ % this.fps === 0)
+      if (this.frameCount++ % (this.fps/10) === 0)
         this.calculateRemainingTime();
       }
   }
