@@ -32,11 +32,14 @@ const Corners = {
 }
 class DVDBouncer {
   constructor(canvas, w, h, options = {x:0, y:0, vx:1, vy:1, W:540, H:300}) {
-    this.x = options.x;
-    this.y = options.y;
+    let randomX = Math.round(Math.random());
+    let randomY = Math.round(Math.random());
+    
+    this.x = randomX*(options.W-w);
+    this.y = randomY*(options.H-h);
 
-    this.vx = options.vx;
-    this.vy = options.vy;
+    this.vx = options.vx * (-randomX * 2 + 1);
+    this.vy = options.vy * (-randomY * 2 + 1);
     this.w = w;
     this.h = h;
     this.W = options.W;
@@ -81,7 +84,7 @@ class DVDBouncer {
   }
   
   getHitCorners() {
-    if (!this.willHitTheCorner()) return [-1, -1];
+    if (!this.willHitTheCorner()) return null;
     let det = [(Util.lcm(this.W0, this.H0) / this.H0) % 2 == 0, (Util.lcm(this.W0, this.H0) / this.W0) % 2 == 0];
     if ((Math.abs(this.x - this.y) / Util.gcd(this.W0, this.H0)) % 2 == 0)
     return [Corners.TL, det[0] ? Corners.TR : det[1] ? Corners.BL : Corners.BR];
@@ -120,16 +123,16 @@ class DVDBouncer {
     if (this.elapsed > this.fpsInterval) {
       this.then = this.now - (this.elapsed % this.fpsInterval);
 
-      // TO-DO: Ajust position for when the speed is greater than 1px
       this.x += this.vx;
       this.y += this.vy;
-      if (Util.isOutOfBounds(this.x, 0, this.W0)) {
-        this.vx = -this.vx;
+
+      let overflowX = Util.isOutOfBounds(this.x, 0, this.W0);
+      let overflowY = Util.isOutOfBounds(this.y, 0, this.H0);
+
+      if (overflowX || overflowY) {
         this.randomizeColorIndex();
-      }
-      if (Util.isOutOfBounds(this.y, 0, this.H0)) {
-        this.vy = -this.vy;
-        this.randomizeColorIndex();
+        if (overflowX) this.vx = -this.vx;
+        if (overflowY) this.vy = -this.vy;
       }
 
       this.draw(this.colorArr[this.logoColorIndex]);
