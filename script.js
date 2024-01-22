@@ -1,4 +1,4 @@
-const reqAnimFrame = window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame;
+const reqAnimFrame = window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || window.requestAnimationFrame;
 class Util {
   static isOutOfBounds(x, min, max) {
     return (x - min) * (x - max) >= 0;
